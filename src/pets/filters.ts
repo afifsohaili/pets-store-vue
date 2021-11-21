@@ -32,6 +32,5 @@ export const maintenanceSort = (pets: Pet[]) => {
 }
 
 export const checkExistingPet = (targetPet: Pet, pet: Pet) => {
-  return targetPet.breed === pet.breed &&
-    targetPet.type === pet.type;
+  return targetPet.image === pet.image
 }

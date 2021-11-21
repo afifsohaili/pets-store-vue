@@ -43,17 +43,17 @@ const handleDrop = (e: Event) => {
     <template v-else>
       <h5 class="pets__title mb-4">Cats</h5>
       <div class="pets pets--cats">
-        <pet-card v-for="cat in availableCats" :pet="cat"/>
+        <pet-card v-for="cat in availableCats" :pet="cat" :key="cat.image"/>
       </div>
 
       <h5 class="pets__title my-4">Dogs</h5>
       <div class="pets pets--dogs">
-        <pet-card v-for="dog in availableDogs" :pet="dog"/>
+        <pet-card v-for="dog in availableDogs" :pet="dog" :key="dog.image"/>
       </div>
 
       <h5 class="pets__title my-4">Birds</h5>
       <div class="pets pets--dogs">
-        <pet-card v-for="bird in availableBirds" :pet="bird"/>
+        <pet-card v-for="bird in availableBirds" :pet="bird" :key="bird.image"/>
       </div>
     </template>
   </div>
