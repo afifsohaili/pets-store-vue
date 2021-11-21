@@ -7,6 +7,10 @@ const dragInit = (e: Event) => {
   const dragEvent = e as DragEvent
   if (dragEvent.dataTransfer) {
     dragEvent.dataTransfer.dropEffect = 'move'
+    /*
+     Sets the data for transfer. This will be used by the ondrop function
+     when the user drops this HTML node on a valid dropzone.
+     */
     dragEvent.dataTransfer.setData('text/plain', JSON.stringify(props.pet))
   }
 }

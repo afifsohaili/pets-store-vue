@@ -3,7 +3,9 @@ import {checkExistingPet} from "../pets/filters";
 import {Pet} from "../pets/api";
 import {loadPreference, savePreferences} from "../utils/save-preferences";
 
+// Initialize with the saved preferences on load
 export const selectedPets = ref<Pet[]>(loadPreference('selectedPets') || [])
+// Save "selected" pets to localStorage whenever the collection changes
 savePreferences(selectedPets, 'selectedPets')
 
 export const selectPet = (pet: Pet) => {

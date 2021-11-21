@@ -21,6 +21,10 @@ onMounted(async () => {
   }
 })
 
+/*
+This ondrop is for handling dragging from "favorites" section to the
+"available" section (i.e. the user decides to "unselect" the pet)
+ */
 const handleDrop = (e: Event) => {
   const dragEvent = e as DragEvent
 
