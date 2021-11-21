@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AvailablePets from "./components/AvailablePets.vue";
 import SelectedPets from "./components/SelectedPets.vue";
+import PetsFilter from "./components/PetsFilter.vue";
 </script>
 
 <template>
@@ -15,7 +16,7 @@ import SelectedPets from "./components/SelectedPets.vue";
 
     <div class="row">
       <div class="col-12 pb-3">
-        Sorting options go here...
+        <pets-filter/>
       </div>
     </div>
 

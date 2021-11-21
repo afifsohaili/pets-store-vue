@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import PetCard from "./PetCard.vue";
-import {addAvailablePet, birds, cats, dogs, setAvailablePets} from "../store/available-pets";
+import {addAvailablePet, availableBirds, availableCats, availableDogs, setAvailablePets} from "../store/available-pets";
 import {onMounted} from "vue";
 import {fetchPets} from "../pets/api";
 
@@ -24,19 +24,19 @@ const handleDrop = (e: Event) => {
     <hr>
 
     <div class="pets pets--cats">
-      <pet-card v-for="cat in cats" :pet="cat"/>
+      <pet-card v-for="cat in availableCats" :pet="cat"/>
     </div>
 
     <h6 class="text-white">Dogs</h6>
     <hr>
     <div class="pets pets--dogs">
-      <pet-card v-for="dog in dogs" :pet="dog"/>
+      <pet-card v-for="dog in availableDogs" :pet="dog"/>
     </div>
 
     <h6 class="text-white">Birds</h6>
     <hr>
     <div class="pets pets--dogs">
-      <pet-card v-for="bird in birds" :pet="bird"/>
+      <pet-card v-for="bird in availableBirds" :pet="bird"/>
     </div>
   </div>
 </template>

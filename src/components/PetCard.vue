@@ -20,8 +20,8 @@ const dragInit = (e: Event) => {
       <h5 class="pet-card__title">{{pet.type}}</h5>
       <h6 class="pet-card__subtitle">{{formatBreed(pet.breed)}}</h6>
       <ul class="pet-card__details">
-        <li class=""><strong class="">Maintenance</strong>: {{pet.maintenance}}</li>
         <li class=""><strong class="">Adaptability</strong>: {{pet.adaptability}}</li>
+        <li class=""><strong class="">Maintenance</strong>: {{pet.maintenance}}</li>
       </ul>
     </div>
   </div>

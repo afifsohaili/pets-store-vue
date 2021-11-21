@@ -1,7 +1,8 @@
 import {computed, ref} from "vue";
 import {Pet} from "../pets/api";
-import {checkExistingPet} from "../pets/filters";
+import {adaptabilitySort, checkExistingPet, isOfType, maintenanceSort} from "../pets/filters";
 import {unselectPet} from "./selected-pets";
+import {chain} from "../utils/chain";
 
 export const availablePets = ref<Pet[]>([])
 
@@ -25,6 +26,26 @@ export const removeAvailablePet = (pet: Pet) => {
   }
 }
 
-export const cats = computed(() => availablePets.value.filter(pet => pet.type === 'cat'))
-export const dogs = computed(() => availablePets.value.filter(pet => pet.type === 'dog'))
-export const birds = computed(() => availablePets.value.filter(pet => pet.type === 'bird'))
+export const availableCats = computed(() => {
+  return chain(availablePets.value,
+    isOfType('cat'),
+    maintenanceSort,
+    adaptabilitySort,
+  )
+})
+
+export const availableDogs = computed(() => {
+  return chain(availablePets.value,
+    isOfType('dog'),
+    maintenanceSort,
+    adaptabilitySort,
+  )
+})
+
+export const availableBirds = computed(() => {
+  return chain(availablePets.value,
+    isOfType('bird'),
+    maintenanceSort,
+    adaptabilitySort,
+  )
+})

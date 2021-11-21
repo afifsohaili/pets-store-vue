@@ -5,7 +5,7 @@ export interface Pet {
   breed: string | undefined
   image: string
   maintenance: number
-  type: "dog" | "cat" | "bird"
+  type: "cat" | "dog" | "bird"
 }
 
 export const fetchPets = async () => {
