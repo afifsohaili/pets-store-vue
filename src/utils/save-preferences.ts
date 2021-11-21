@@ -7,5 +7,5 @@ export const savePreferences = (value: Ref, key: string) => {
 }
 
 export const loadPreference = (key: string) => {
-  return JSON.parse(localStorage.getItem(key) || 'null')
+  return JSON.parse(window.localStorage.getItem(key) || 'null')
 }
