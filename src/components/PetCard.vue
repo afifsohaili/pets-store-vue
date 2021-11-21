@@ -1,12 +1,14 @@
 <script lang="ts" setup>
-import {Pet} from "../api/pets";
+import {Pet} from "../pets/api";
 
 const props = defineProps<{pet: Pet}>()
 const formatBreed = (breed: string | undefined) => breed?.replaceAll('-', ' ')
 const dragInit = (e: Event) => {
   const dragEvent = e as DragEvent
-  dragEvent.dataTransfer.dropEffect = 'move'
-  dragEvent.dataTransfer.setData('text/plain', JSON.stringify(props.pet))
+  if (dragEvent.dataTransfer) {
+    dragEvent.dataTransfer.dropEffect = 'move'
+    dragEvent.dataTransfer.setData('text/plain', JSON.stringify(props.pet))
+  }
 }
 </script>
 

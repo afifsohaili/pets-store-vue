@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 import PetCard from "./PetCard.vue";
-import {cats, dogs, birds, addAvailablePet, unselectPet} from "../store/pets";
+import {addAvailablePet, birds, cats, dogs, setAvailablePets} from "../store/available-pets";
+import {onMounted} from "vue";
+import {fetchPets} from "../pets/api";
+
+onMounted(async () => {
+  setAvailablePets(await fetchPets())
+})
 
 const handleDrop = (e: Event) => {
   const dragEvent = e as DragEvent
@@ -8,7 +14,6 @@ const handleDrop = (e: Event) => {
   if (dragEvent.dataTransfer) {
     const pet = JSON.parse(dragEvent.dataTransfer.getData('text/plain'))
     addAvailablePet(pet)
-    unselectPet(pet)
   }
 }
 </script>

@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import {Pet} from "../api/pets";
 import PetCard from "./PetCard.vue";
-import {selectedPets, selectPet} from "../store/pets";
-
-const dragOver = e => e.preventDefault()
+import {selectPet, selectedPets} from "../store/selected-pets";
+import {Pet} from "../pets/api";
 
 const handleDrop = (e: Event) => {
   const dragEvent = e as DragEvent
@@ -18,7 +16,7 @@ const handleDrop = (e: Event) => {
   <p class="text-white">
     Let's add drag and drop of cards here so Yoyo and her parents can choose and reorder the pet she wants!
   </p>
-  <div class="selected-pets" @dragover="dragOver" @drop="handleDrop">
+  <div class="selected-pets" @dragover.prevent @drop="handleDrop">
     <pet-card v-for="selectedPet in selectedPets" :pet="selectedPet"/>
   </div>
 </template>

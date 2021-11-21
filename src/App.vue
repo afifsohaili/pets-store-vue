@@ -1,13 +1,6 @@
 <script setup lang="ts">
-import {onMounted} from "vue";
-import {fetchPets} from "./api/pets";
-import {setAvailablePets} from "./store/pets";
 import AvailablePets from "./components/AvailablePets.vue";
 import SelectedPets from "./components/SelectedPets.vue";
-
-onMounted(async () => {
-  setAvailablePets(await fetchPets())
-})
 </script>
 
 <template>
