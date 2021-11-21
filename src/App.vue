@@ -5,31 +5,36 @@ import PetsFilter from "./components/PetsFilter.vue";
 </script>
 
 <template>
-  <div class="container p-5">
+  <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="alert alert-primary" role="alert">
-          Let's Help Yoyo choose her pet!
-        </div>
+        <h1 class="my-5">Pets Store</h1>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-12 pb-3">
+      <div class="col-12 mb-3">
+        <strong>Sort by:</strong>
         <pets-filter/>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-5">
       <div class="col-6">
         <available-pets/>
       </div>
 
       <div class="col-6">
-        <div class="stack bg-info rounded p-3">
+        <div class="stack rounded p-3 selected-pets">
           <selected-pets/>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.selected-pets {
+  background: #383838;
+}
+</style>

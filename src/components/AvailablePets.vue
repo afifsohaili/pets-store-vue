@@ -1,12 +1,24 @@
 <script lang="ts" setup>
 import PetCard from "./PetCard.vue";
 import {availableBirds, availableCats, availableDogs, setAvailablePets} from "../store/available-pets";
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {fetchPets} from "../pets/api";
 import {unselectPet} from "../store/selected-pets";
 
+const isLoading = ref(false)
+const error = ref('')
+
 onMounted(async () => {
-  setAvailablePets(await fetchPets())
+  isLoading.value = true
+  try {
+    const pets = await fetchPets()
+    setAvailablePets(pets)
+  } catch(err) {
+    console.error(err.message)
+    error.value = err.message
+  } finally {
+    isLoading.value = false
+  }
 })
 
 const handleDrop = (e: Event) => {
@@ -20,24 +32,42 @@ const handleDrop = (e: Event) => {
 </script>
 
 <template>
-  <div class="stack bg-info rounded p-3" @dragover.prevent @drop.prevent="handleDrop">
-    <h6 class="text-white">Cats</h6>
-    <hr>
-
-    <div class="pets pets--cats">
-      <pet-card v-for="cat in availableCats" :pet="cat"/>
+  <div class="stack rounded p-3 available-pets" @dragover.prevent @drop.prevent="handleDrop">
+    <div class="text-center" v-if="isLoading">
+      <p>Fetching pets...</p>
+      <div class="spinner-border" role="status"></div>
     </div>
-
-    <h6 class="text-white">Dogs</h6>
-    <hr>
-    <div class="pets pets--dogs">
-      <pet-card v-for="dog in availableDogs" :pet="dog"/>
+    <div v-else-if="error.length" class="alert alert-danger">
+      Error: {{error}}
     </div>
+    <template v-else>
+      <h5 class="pets__title mb-4">Cats</h5>
+      <div class="pets pets--cats">
+        <pet-card v-for="cat in availableCats" :pet="cat"/>
+      </div>
 
-    <h6 class="text-white">Birds</h6>
-    <hr>
-    <div class="pets pets--dogs">
-      <pet-card v-for="bird in availableBirds" :pet="bird"/>
-    </div>
+      <h5 class="pets__title my-4">Dogs</h5>
+      <div class="pets pets--dogs">
+        <pet-card v-for="dog in availableDogs" :pet="dog"/>
+      </div>
+
+      <h5 class="pets__title my-4">Birds</h5>
+      <div class="pets pets--dogs">
+        <pet-card v-for="bird in availableBirds" :pet="bird"/>
+      </div>
+    </template>
   </div>
 </template>
+
+<style scoped>
+.pets__title {
+  background: #f3f3f3;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.available-pets {
+  height: 100vh;
+  overflow: auto;
+}
+</style>

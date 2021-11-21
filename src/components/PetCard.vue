@@ -13,7 +13,7 @@ const dragInit = (e: Event) => {
 </script>
 
 <template>
-  <div class="pet-card mb-3" @dragstart="dragInit" draggable="true">
+  <div class="pet-card mb-3 shadow-sm" @dragstart="dragInit" draggable="true">
     <div class="pet-card__body">
       <div class="pet-card__thumb"
            :style="{'background-image': `url('${pet.image}')`}"></div>
@@ -42,6 +42,7 @@ const dragInit = (e: Event) => {
 }
 
 .pet-card__thumb {
+  background-color: #d9d9d9;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

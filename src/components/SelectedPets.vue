@@ -21,10 +21,13 @@ const reorderFavorites = (e: Event, petToSwap: Pet) => {
 </script>
 
 <template>
-  <p class="text-white">
-    Let's add drag and drop of cards here so Yoyo and her parents can choose and reorder the pet she wants!
-  </p>
+  <h5 class="text-white mb-3">
+    Favorites
+  </h5>
   <div class="selected-pets" @dragover.prevent @drop="handleDrop">
+    <p v-if="selectedPets.length === 0" class="text-light">
+      No favorites yet. Drag and drop your favorite pet here.
+    </p>
     <pet-card v-for="selectedPet in selectedPets" :pet="selectedPet" @dragover.prevent @drop="e => reorderFavorites(e, selectedPet)"/>
   </div>
 </template>
