@@ -20,3 +20,13 @@ export const unselectPet = (pet: Pet) => {
     selectedPets.value.splice(index, 1)
   }
 }
+
+export const swapSelectedPet = (pet1: Pet, pet2: Pet) => {
+  const index1 = selectedPets.value.findIndex(selectedPet => checkExistingPet(selectedPet, pet1))
+  const index2 = selectedPets.value.findIndex(selectedPet => checkExistingPet(selectedPet, pet2))
+  if (index1 < 0 || index2 < 0) {
+    return
+  }
+  selectedPets.value.splice(index1, 1, pet2)
+  selectedPets.value.splice(index2, 1, pet1)
+}

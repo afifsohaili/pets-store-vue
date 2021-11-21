@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import PetCard from "./PetCard.vue";
-import {selectPet, selectedPets} from "../store/selected-pets";
+import {selectPet, selectedPets, swapSelectedPet} from "../store/selected-pets";
 import {Pet} from "../pets/api";
 
 const handleDrop = (e: Event) => {
@@ -10,6 +10,14 @@ const handleDrop = (e: Event) => {
     selectPet(pet)
   }
 }
+
+const reorderFavorites = (e: Event, petToSwap: Pet) => {
+  const dragEvent = e as DragEvent
+  if (dragEvent.dataTransfer) {
+    const draggedPet: Pet = JSON.parse(dragEvent.dataTransfer.getData('text/plain'))
+    swapSelectedPet(draggedPet, petToSwap)
+  }
+}
 </script>
 
 <template>
@@ -17,7 +25,7 @@ const handleDrop = (e: Event) => {
     Let's add drag and drop of cards here so Yoyo and her parents can choose and reorder the pet she wants!
   </p>
   <div class="selected-pets" @dragover.prevent @drop="handleDrop">
-    <pet-card v-for="selectedPet in selectedPets" :pet="selectedPet"/>
+    <pet-card v-for="selectedPet in selectedPets" :pet="selectedPet" @dragover.prevent @drop="e => reorderFavorites(e, selectedPet)"/>
   </div>
 </template>
 
