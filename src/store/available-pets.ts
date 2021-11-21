@@ -1,7 +1,7 @@
 import {computed, ref} from "vue";
 import {Pet} from "../pets/api";
 import {adaptabilitySort, checkExistingPet, isOfType, maintenanceSort} from "../pets/filters";
-import {unselectPet} from "./selected-pets";
+import {selectedPets} from "./selected-pets";
 import {chain} from "../utils/chain";
 
 export const availablePets = ref<Pet[]>([])
@@ -10,25 +10,16 @@ export const setAvailablePets = (newPets: Pet[]) => {
   availablePets.value = newPets
 }
 
-export const addAvailablePet = (pet: Pet) => {
-  const existingPet = availablePets.value.find(availablePet => checkExistingPet(availablePet, pet))
-  if (typeof existingPet != 'undefined') {
-    return;
-  }
-  availablePets.value.push(pet)
-  unselectPet(pet)
-}
-
-export const removeAvailablePet = (pet: Pet) => {
-  const index = availablePets.value.findIndex(availablePet => checkExistingPet(availablePet, pet))
-  if (index > -1) {
-    availablePets.value.splice(index, 1)
-  }
+const isNotSelected = (pets: Pet[]) => {
+  return pets.filter(pet => {
+    return selectedPets.value.findIndex(selectedPet => checkExistingPet(pet, selectedPet)) < 0
+  })
 }
 
 export const availableCats = computed(() => {
   return chain(availablePets.value,
     isOfType('cat'),
+    isNotSelected,
     maintenanceSort,
     adaptabilitySort,
   )
@@ -37,6 +28,7 @@ export const availableCats = computed(() => {
 export const availableDogs = computed(() => {
   return chain(availablePets.value,
     isOfType('dog'),
+    isNotSelected,
     maintenanceSort,
     adaptabilitySort,
   )
@@ -45,6 +37,7 @@ export const availableDogs = computed(() => {
 export const availableBirds = computed(() => {
   return chain(availablePets.value,
     isOfType('bird'),
+    isNotSelected,
     maintenanceSort,
     adaptabilitySort,
   )

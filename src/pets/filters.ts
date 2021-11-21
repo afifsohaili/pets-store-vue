@@ -1,8 +1,11 @@
 import {Pet} from "./api";
 import {ref} from "vue";
+import {loadPreference, savePreferences} from "../utils/save-preferences";
 
-export const sortByAdaptability = ref(false)
-export const sortByMaintenance = ref(false)
+export const sortByAdaptability = ref(loadPreference('sortByAdaptability') || false)
+savePreferences(sortByAdaptability, 'sortByAdaptability')
+export const sortByMaintenance = ref(loadPreference('sortByMaintenance') || false)
+savePreferences(sortByMaintenance, 'sortByMaintenance')
 
 export const isOfType = (type: Pet["type"]) => (pets: Pet[]) => pets.filter(pet => pet.type === type);
 

@@ -1,9 +1,10 @@
 import {ref} from "vue";
 import {checkExistingPet} from "../pets/filters";
-import {removeAvailablePet} from "./available-pets";
 import {Pet} from "../pets/api";
+import {loadPreference, savePreferences} from "../utils/save-preferences";
 
-export const selectedPets = ref<Pet[]>([])
+export const selectedPets = ref<Pet[]>(loadPreference('selectedPets') || [])
+savePreferences(selectedPets, 'selectedPets')
 
 export const selectPet = (pet: Pet) => {
   const existingPet = selectedPets.value.find(selectedPet => checkExistingPet(selectedPet, pet))
@@ -11,7 +12,6 @@ export const selectPet = (pet: Pet) => {
     return;
   }
   selectedPets.value.push(pet)
-  removeAvailablePet(pet)
 }
 
 export const unselectPet = (pet: Pet) => {
